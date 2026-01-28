@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nuestro primer San Valentín</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: #7b1e24;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.page {
+  display: none;
+  background: #fffaf6;
+  min-height: 100vh;
+  padding: 60px 20px;
+  animation: fade 1s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.polaroids {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.polaroid {
+  background: white;
+  padding: 10px 10px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  width: 200px;
+}
+
+.polaroid img {
+  width: 100%;
+}
+
+.text {
+  max-width: 650px;
+  margin: 50px auto;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.button {
+  margin-top: 50px;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  background: #c9a29a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.vinyls {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.vinyl {
+  width: 200px;
+}
+
+.vinyl img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.caption {
+  margin-top: 10px;
+  font-size: 15px;
+  font-style: italic;
+}
+
+.countdown {
+  margin-top: 30px;
+  font-size: 18px;
+  font-style: italic;
+}
+
+.options button {
+  margin: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PÁGINA 1 -->
+<section class="page active" id="page1">
+  <div class="container">
+    <h1>Nuestro primer San Valentín</h1>
+
+    <div class="polaroids">
+      <div class="polaroid"><img src="polaroid1.jpg"></div>
+      <div class="polaroid"><img src="polaroid2.jpg"></div>
+      <div class="polaroid"><img src="polaroid3.jpg"></div>
+    </div>
+
+    <div class="text">
+      <p><strong>Muñequita,</strong></p>
+      <p>
+        No sabía que en tan poquito tiempo se pudiera amar tan profundo.
+        Pero llegaste tú y todo se volvió suave, real, hogar.
+      </p>
+      <p>
+        Amor, gracias por estos cinco meses, por tu ternura
+        y por elegirme cada día.
+      </p>
+      <p>
+        Este es nuestro primer San Valentín
+        y quiero preguntarte algo especial.
+      </p>
+    </div>
+
+    <button class="button" onclick="nextPage(2)">
+      Te tengo algo más
+    </button>
+  </div>
+</section>
+
+<!-- PÁGINA 2 -->
+<section class="page" id="page2">
+  <div class="container">
+    <h1>¿Quieres ser mi San Valentín?</h1>
+
+    <div class="options">
+      <button class="button" onclick="nextPage(3)">Sí 🤍</button>
+      <button class="button" onclick="alert('No era una opción 😌')">No</button>
+    </div>
+  </div>
+</section>
+
+<!-- PÁGINA 3 -->
+<section class="page" id="page3">
+  <div class="container">
+    <h1>14 de febrero</h1>
+
+    <div class="text">
+      <p>
+        Te invito a una <strong>cena por FaceTime</strong><br>
+        el <strong>14 de febrero</strong> a las <strong>9:00 pm</strong>.
+      </p>
+      <p>
+        Nada exagerado, nada perfecto.<br>
+        Solo tú y yo, celebrando que nos encontramos.
+      </p>
+    </div>
+
+    <div class="countdown" id="countdown"></div>
+
+    <h1 style="margin-top:60px; font-size:28px;">
+      Quiero que me encuentres en las canciones<br>
+      que te dediqué desde el alma
+    </h1>
+
+    <div class="vinyls">
+      <div class="vinyl">
+        <img src="vinyl1.jpg">
+        <div class="caption">Gongoli — Álvaro Díaz</div>
+      </div>
+      <div class="vinyl">
+        <img src="vinyl2.jpg">
+        <div class="caption">Morfina — HUMBE</div>
+      </div>
+      <div class="vinyl">
+        <img src="vinyl3.jpg">
+        <div class="caption">I’ll Call You Mine — girl in red</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function nextPage(num) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(`page${num}`).classList.add('active');
+}
+
+const target = new Date("February 14, 2026 21:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = target - now;
+
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `Faltan ${d} días, ${h} horas y ${m} minutos`;
+}, 1000);
+</script>
+
+</body>
+</html>
